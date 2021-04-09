@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9cc49be775d5b794c6cdacd322dc11bba378c939999c2eae045f39b7986a4702
+-- hash: 78c04c1d3aafe9191343ef0ad20a851cfb1509b04201a56f5fe62c56d9a514c9
 
 name:           rigix
 version:        0.1.0.0
@@ -27,13 +27,15 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Zoerlib
   other-modules:
       Paths_rigix
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+      , hslogger
+
   default-language: Haskell2010
 
 executable rigix-exe
@@ -46,6 +48,7 @@ executable rigix-exe
   build-depends:
       base >=4.7 && <5
     , rigix
+    , hslogger
   default-language: Haskell2010
 
 test-suite rigix-test
