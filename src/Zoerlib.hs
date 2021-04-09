@@ -13,32 +13,39 @@ import System.Log.Handler         hiding (setLevel)
 import System.Log.Handler.Simple         (fileHandler, streamHandler)
 
 
--- Читать конфигурацию из заданного TOML-файла
+{-
+  Read the configuration from the specified TOML file
+-} 
 configurationRead :: String -> (String, String, String)
 configurationRead fileName = 
   (fileName, "127.0.0.1", "7777")
 
 
--- Вернуть уровень логирования, выраженный в Priority
+{- 
+  Return the logging level expressed in Priority
+-}
 getLogLevel :: String -> Priority
 getLogLevel logLevel
   | logLevel == "INFO"  = INFO
   | logLevel == "DEBUG" = DEBUG
   | otherwise = ERROR
 
--- Выставить параметры логирования
+
+{- 
+  Set logging parameters
+-}
 setLogging :: String -> String -> String -> Bool -> IO ()
 setLogging loggerName logFileName logLevel toFileFlag= do
 
   let formatString = "$time [$prio]: $msg"
   let formatter = simpleLogFormatter formatString
 
-  -- В файл, если флаг установлен
+  -- To the file, if the flag is set
   Control.Monad.when toFileFlag $ do
     logFileHandler <- fileHandler logFileName (getLogLevel logLevel)
     updateGlobalLogger loggerName $ addHandler (setFormatter logFileHandler formatter)
 
-  -- В консоль
+  -- In console
   stdOutHandler <-
       streamHandler stdout (getLogLevel logLevel) >>=
       \lh -> return $ setFormatter lh (simpleLogFormatter formatString)

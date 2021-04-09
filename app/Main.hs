@@ -1,5 +1,5 @@
 {-
-    Агент
+    Rigix agent
 -}
 
 module Main where
@@ -14,7 +14,9 @@ import System.Log.Logger
 main :: IO ()
 main = do 
   
-    {- Configuration file read -}
+    {- 
+      Configuration file read 
+    -}
 
     -- Get home directory name
     homeDirectory <- getHomeDirectory
@@ -26,9 +28,11 @@ main = do
       print ("ERROR: Configuration file '" ++ configFileName ++ "' not found.")
       exitFailure 
 
-    {- Logging -}
+    {- 
+      Logging 
+    -}
     let loggerName = "RigixLogger"
-    let logFileName = homeDirectory ++ "/.rigix/rigix.log"   -- TODO: Расхардкодить путь!!!
+    let logFileName = homeDirectory ++ "/.rigix/rigix.log"
     let logLevel = "INFO"
     let toFileFlag = True
     setLogging loggerName logFileName logLevel toFileFlag
