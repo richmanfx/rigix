@@ -5,22 +5,33 @@
 module Main where
 
 import Zoerlib
+import System.Exit
+import Control.Monad
+import System.Directory
 import System.Log.Logger
 
 
 main :: IO ()
 main = do 
   
-    -- Читать конфигурацию из файла (TODO: пока заглушка)
-    print.configurationRead $ "$HOME/.rigix/rigix.toml"
+    {- Configuration file read -}
 
-    -- Логирование
+    -- Get home directory name
+    homeDirectory <- getHomeDirectory
+
+    -- Check configuration file exist
+    let configFileName = homeDirectory ++ "/.rigix/rigix.toml"
+    configFileExist <- doesFileExist configFileName
+    unless configFileExist $ do
+      print ("ERROR: Configuration file '" ++ configFileName ++ "' not found.")
+      exitFailure 
+
+    {- Logging -}
     let loggerName = "RigixLogger"
-    let logFileName = "/home/zoer/.rigix/rigix.log"   -- TODO: Расхардкодить путь!!!
+    let logFileName = homeDirectory ++ "/.rigix/rigix.log"   -- TODO: Расхардкодить путь!!!
     let logLevel = "INFO"
     let toFileFlag = True
     setLogging loggerName logFileName logLevel toFileFlag
-  
 
-    infoM loggerName "Информационное сообщение !!!"
-    debugM loggerName "Отладочное сообщение !!!"
+
+    infoM loggerName ("Home directory: " ++ homeDirectory)

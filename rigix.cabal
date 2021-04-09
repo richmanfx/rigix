@@ -35,7 +35,7 @@ library
   build-depends:
       base >=4.7 && <5
       , hslogger
-
+      , directory
   default-language: Haskell2010
 
 executable rigix-exe
@@ -49,6 +49,7 @@ executable rigix-exe
       base >=4.7 && <5
     , rigix
     , hslogger
+    , directory
   default-language: Haskell2010
 
 test-suite rigix-test
