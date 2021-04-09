@@ -1,10 +1,12 @@
 
-Предстоит:
+To do:
 ==========
-  - Прочитать параметры из конфигурационного TOML-файла.
+ - From configuration TOML-file parameters read
   
   
   
-Готово:
-=======  
+Done:
+=======
+ - In file logging
+ - In console logging
   
